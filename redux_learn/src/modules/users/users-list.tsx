@@ -1,22 +1,16 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
-import {
-	selectSelectedUserId,
-	selectSortedUsers,
-	type User,
-	type UserDeselectedAction,
-	type UserId,
-	type UserSelectedAction,
-} from './users.slice';
+import { usersSlice, type UserId } from './users.slice';
 
-const SpisokSelectorsTraining = () => {
-	console.log('SpisokSelectorsTraining rerender');
+const UsersList = () => {
 	const [sortType, setSortType] = useState<'asc' | 'desc'>('asc');
 
-	const selectedUserId = useAppSelector(selectSelectedUserId);
-
 	const sortedUsers = useAppSelector((state) =>
-		selectSortedUsers(state, sortType),
+		usersSlice.selectors.selectSortedUsers(state, sortType),
+	);
+
+	const selectedUserId = useAppSelector(
+		usersSlice.selectors.selectSelectedUserId,
 	);
 
 	return (
@@ -31,7 +25,7 @@ const SpisokSelectorsTraining = () => {
 						{sortedUsers.map((user) => {
 							return (
 								<>
-									<UserListItem user={user} key={user.id} />
+									<UserListItem userId={user.id} key={user.id} />
 								</>
 							);
 						})}
@@ -46,7 +40,7 @@ const SpisokSelectorsTraining = () => {
 	);
 };
 
-export default SpisokSelectorsTraining;
+export default UsersList;
 
 const SelectedUser = ({ userId }: { userId: UserId }) => {
 	const dispatch = useAppDispatch();
@@ -54,7 +48,7 @@ const SelectedUser = ({ userId }: { userId: UserId }) => {
 	const user = useAppSelector((state) => state.users.entities[userId]);
 
 	const onBackButtonClick = () => {
-		dispatch({ type: 'userDeselected' } satisfies UserDeselectedAction);
+		dispatch(usersSlice.actions.deselected());
 	};
 	return (
 		<div>
@@ -65,17 +59,14 @@ const SelectedUser = ({ userId }: { userId: UserId }) => {
 	);
 };
 
-const UserListItem = ({ user }: { user: User }) => {
+const UserListItem = ({ userId }: { userId: UserId }) => {
 	const dispatch = useAppDispatch();
 	const handleUserClick = () => {
-		dispatch({
-			type: 'userSelected',
-			payload: { userId: user.id },
-		} satisfies UserSelectedAction);
+		dispatch(usersSlice.actions.selected({ userId }));
 	};
 	return (
-		<li key={user.id} onClick={handleUserClick}>
-			<span>{user.name}</span>
+		<li key={userId} onClick={handleUserClick}>
+			<span>{userId}</span>
 		</li>
 	);
 };

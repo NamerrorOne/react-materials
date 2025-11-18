@@ -1,5 +1,6 @@
 import '../App.css';
-import { store, type AppState, type CounterId } from '../store';
+import type { CounterId } from '../modules/counters/counters.slice';
+import { store, type AppState } from '../store';
 import { useEffect, useReducer, useRef } from 'react';
 
 function PureRedux() {
@@ -50,7 +51,7 @@ export function Counter({ counterId }: { counterId: CounterId }) {
 		<>
 			<button
 				onClick={() =>
-					store.dispatch({ type: 'decrement', payload: { counterId } })
+					store.dispatch({ type: 'counters/increment', payload: { counterId } })
 				}
 			>
 				dec
@@ -58,7 +59,7 @@ export function Counter({ counterId }: { counterId: CounterId }) {
 			<span style={{ margin: '0 20px' }}>{counterState?.counter}</span>
 			<button
 				onClick={() =>
-					store.dispatch({ type: 'increment', payload: { counterId } })
+					store.dispatch({ type: 'counters/decrement', payload: { counterId } })
 				}
 			>
 				inc

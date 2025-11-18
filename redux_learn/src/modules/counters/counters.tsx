@@ -1,5 +1,9 @@
 import { useAppDispatch, useAppSelector } from '../../store';
-import type { CounterId } from './counters.slice';
+import {
+	decrementAction,
+	incrementAction,
+	type CounterId,
+} from './counters.slice';
 
 export const Counters = () => {
 	return (
@@ -18,16 +22,12 @@ export function Counter({ counterId }: { counterId: CounterId }) {
 	return (
 		<>
 			<span style={{ margin: '0 20px' }}></span>
-			<button
-				onClick={() => dispatch({ type: 'decrement', payload: { counterId } })}
-			>
-				dec
+			<button onClick={() => dispatch(decrementAction({ counterId }))}>
+				-
 			</button>
 			<span style={{ margin: '0 20px' }}>{counterState?.counter}</span>
-			<button
-				onClick={() => dispatch({ type: 'increment', payload: { counterId } })}
-			>
-				inc
+			<button onClick={() => dispatch(incrementAction({ counterId }))}>
+				+
 			</button>
 			<span style={{ margin: '0 20px' }}></span>
 		</>
