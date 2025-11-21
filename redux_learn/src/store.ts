@@ -1,7 +1,7 @@
 import { configureStore, createSelector } from '@reduxjs/toolkit';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { countersReducer } from './modules/counters/counters.slice';
-import { initialUsersList, usersSlice } from './modules/users/users.slice';
+import { usersSlice } from './modules/users/users.slice';
 
 export const createAppSelector = createSelector.withTypes<AppState>();
 
@@ -22,9 +22,10 @@ export const store = configureStore({
 		counters: countersReducer,
 		[usersSlice.name]: usersSlice.reducer,
 	},
+	middleware: (getDefaultMiddleware) => {
+		return getDefaultMiddleware();
+	},
 });
-
-store.dispatch(usersSlice.actions.stored({ users: initialUsersList }));
 
 export type AppState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

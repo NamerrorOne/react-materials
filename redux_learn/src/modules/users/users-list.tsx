@@ -1,9 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { usersSlice, type UserId } from './users.slice';
+import { fetchUsers } from './model/fetch-users';
 
 const UsersList = () => {
 	const [sortType, setSortType] = useState<'asc' | 'desc'>('asc');
+	const dispatch = useAppDispatch();
+
+	const isPending = useAppSelector(
+		usersSlice.selectors.selectIsFetchUsersPending,
+	);
+
+	useEffect(() => {
+		dispatch(fetchUsers);
+	}, [dispatch]);
 
 	const sortedUsers = useAppSelector((state) =>
 		usersSlice.selectors.selectSortedUsers(state, sortType),
@@ -12,6 +22,10 @@ const UsersList = () => {
 	const selectedUserId = useAppSelector(
 		usersSlice.selectors.selectSelectedUserId,
 	);
+
+	if (isPending) {
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<div>
@@ -66,7 +80,7 @@ const UserListItem = ({ userId }: { userId: UserId }) => {
 	};
 	return (
 		<li key={userId} onClick={handleUserClick}>
-			<span>{userId}</span>
+			<span>user: {userId}</span>
 		</li>
 	);
 };
