@@ -1,0 +1,24 @@
+import styled from "styled-components";
+
+const IgorButton = styled.button`
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+
+  &:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid #4caf50;
+  }
+`;
+
+export default IgorButton;

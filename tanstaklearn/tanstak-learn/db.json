@@ -1,0 +1,24 @@
+{
+  "tasks": [
+    { "id": 1, "title": "Learn React", "completed": true },
+    { "id": 2, "title": "Learn TypeScript", "completed": false },
+    { "id": 3, "title": "Build a Todo App", "completed": false },
+    { "id": 4, "title": "Explore Vite", "completed": true },
+    { "id": 5, "title": "Understand Tailwind CSS", "completed": false },
+    { "id": 6, "title": "Implement React Query", "completed": false },
+    { "id": 7, "title": "Style with Styled-Components", "completed": true },
+    { "id": 8, "title": "Set up JSON Server", "completed": true },
+    { "id": 9, "title": "Configure ESLint", "completed": false },
+    { "id": 10, "title": "Deploy the App", "completed": false },
+    { "id": 11, "title": "Write Unit Tests", "completed": false },
+    { "id": 12, "title": "Optimize Performance", "completed": false },
+    { "id": 13, "title": "Learn about React Hooks", "completed": true },
+    { "id": 14, "title": "Understand State Management", "completed": false },
+    { "id": 15, "title": "Explore New React Features", "completed": false },
+    { "id": 16, "title": "Refactor Codebase", "completed": false },
+    { "id": 17, "title": "Improve Accessibility", "completed": false },
+    { "id": 18, "title": "Set up Continuous Integration", "completed": false },
+    { "id": 19, "title": "Document the Project", "completed": false },
+    { "id": 20, "title": "Gather User Feedback", "completed": false }
+  ]
+}
