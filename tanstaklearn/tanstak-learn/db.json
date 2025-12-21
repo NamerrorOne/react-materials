@@ -19,6 +19,20 @@
     { "id": 17, "title": "Improve Accessibility", "completed": false },
     { "id": 18, "title": "Set up Continuous Integration", "completed": false },
     { "id": 19, "title": "Document the Project", "completed": false },
-    { "id": 20, "title": "Gather User Feedback", "completed": false }
+    { "id": 20, "title": "Gather User Feedback", "completed": false },
+    { "id": 21, "title": "Plan Future Features", "completed": false },
+    { "id": 22, "title": "Fix Bugs", "completed": false },
+    { "id": 23, "title": "Update Dependencies", "completed": false },
+    { "id": 24, "title": "Learn about Web Accessibility", "completed": false },
+    { "id": 25, "title": "Explore Server-Side Rendering", "completed": false },
+    {
+      "id": 26,
+      "title": "Understand Progressive Web Apps",
+      "completed": false
+    },
+    { "id": 27, "title": "Implement Dark Mode", "completed": false },
+    { "id": 28, "title": "Learn about GraphQL", "completed": false },
+    { "id": 29, "title": "Optimize for SEO", "completed": false },
+    { "id": 30, "title": "Explore Mobile-First Design", "completed": false }
   ]
 }
