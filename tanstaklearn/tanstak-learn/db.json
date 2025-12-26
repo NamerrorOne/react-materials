@@ -1,38 +1,183 @@
 {
   "tasks": [
-    { "id": 1, "title": "Learn React", "completed": true },
-    { "id": 2, "title": "Learn TypeScript", "completed": false },
-    { "id": 3, "title": "Build a Todo App", "completed": false },
-    { "id": 4, "title": "Explore Vite", "completed": true },
-    { "id": 5, "title": "Understand Tailwind CSS", "completed": false },
-    { "id": 6, "title": "Implement React Query", "completed": false },
-    { "id": 7, "title": "Style with Styled-Components", "completed": true },
-    { "id": 8, "title": "Set up JSON Server", "completed": true },
-    { "id": 9, "title": "Configure ESLint", "completed": false },
-    { "id": 10, "title": "Deploy the App", "completed": false },
-    { "id": 11, "title": "Write Unit Tests", "completed": false },
-    { "id": 12, "title": "Optimize Performance", "completed": false },
-    { "id": 13, "title": "Learn about React Hooks", "completed": true },
-    { "id": 14, "title": "Understand State Management", "completed": false },
-    { "id": 15, "title": "Explore New React Features", "completed": false },
-    { "id": 16, "title": "Refactor Codebase", "completed": false },
-    { "id": 17, "title": "Improve Accessibility", "completed": false },
-    { "id": 18, "title": "Set up Continuous Integration", "completed": false },
-    { "id": 19, "title": "Document the Project", "completed": false },
-    { "id": 20, "title": "Gather User Feedback", "completed": false },
-    { "id": 21, "title": "Plan Future Features", "completed": false },
-    { "id": 22, "title": "Fix Bugs", "completed": false },
-    { "id": 23, "title": "Update Dependencies", "completed": false },
-    { "id": 24, "title": "Learn about Web Accessibility", "completed": false },
-    { "id": 25, "title": "Explore Server-Side Rendering", "completed": false },
     {
-      "id": 26,
-      "title": "Understand Progressive Web Apps",
+      "id": 1,
+      "text": "Learn React",
+      "completed": true
+    },
+    {
+      "id": 2,
+      "text": "Learn TypeScript",
       "completed": false
     },
-    { "id": 27, "title": "Implement Dark Mode", "completed": false },
-    { "id": 28, "title": "Learn about GraphQL", "completed": false },
-    { "id": 29, "title": "Optimize for SEO", "completed": false },
-    { "id": 30, "title": "Explore Mobile-First Design", "completed": false }
+    {
+      "id": 3,
+      "text": "Build a Todo App",
+      "completed": false
+    },
+    {
+      "id": 4,
+      "text": "Write Tests",
+      "completed": false
+    },
+    {
+      "id": 5,
+      "text": "Deploy Application",
+      "completed": false
+    },
+    {
+      "id": 6,
+      "text": "Learn React Query",
+      "completed": false
+    },
+    {
+      "id": 7,
+      "text": "Implement Infinite Scrolling",
+      "completed": false
+    },
+    {
+      "id": 8,
+      "text": "Optimize Performance",
+      "completed": false
+    },
+    {
+      "id": 9,
+      "text": "Refactor Codebase",
+      "completed": false
+    },
+    {
+      "id": 10,
+      "text": "Update Documentation",
+      "completed": false
+    },
+    {
+      "id": 11,
+      "text": "Fix Bugs",
+      "completed": false
+    },
+    {
+      "id": 12,
+      "text": "Add New Features",
+      "completed": false
+    },
+    {
+      "id": 13,
+      "text": "Conduct Code Reviews",
+      "completed": false
+    },
+    {
+      "id": 14,
+      "text": "Participate in Team Meetings",
+      "completed": false
+    },
+    {
+      "id": 15,
+      "text": "Learn New Technologies",
+      "completed": false
+    },
+    {
+      "id": 16,
+      "text": "Improve UI/UX",
+      "completed": false
+    },
+    {
+      "id": 17,
+      "text": "Set Up CI/CD Pipeline",
+      "completed": false
+    },
+    {
+      "id": 18,
+      "text": "Monitor Application Performance",
+      "completed": false
+    },
+    {
+      "id": 19,
+      "text": "Gather User Feedback",
+      "completed": false
+    },
+    {
+      "id": 20,
+      "text": "Plan Next Sprint",
+      "completed": false
+    },
+    {
+      "id": 21,
+      "text": "Research Competitors",
+      "completed": false
+    },
+    {
+      "id": 22,
+      "text": "Optimize SEO",
+      "completed": false
+    },
+    {
+      "id": 23,
+      "text": "Create Marketing Strategy",
+      "completed": false
+    },
+    {
+      "id": 24,
+      "text": "Engage with Community",
+      "completed": false
+    },
+    {
+      "id": 25,
+      "text": "Attend Webinars",
+      "completed": false
+    },
+    {
+      "id": "0.22370456700246788",
+      "done": false,
+      "text": "react nativr!",
+      "userId": "1"
+    },
+    {
+      "id": "0.5142343309564444",
+      "done": false,
+      "text": "react native",
+      "userId": "1"
+    },
+    {
+      "id": "0.2664385648724942",
+      "done": false,
+      "text": "expo",
+      "userId": "1"
+    },
+    {
+      "id": "0.24931763269658003",
+      "done": false,
+      "text": "НОВАЯ ДТА",
+      "userId": "1"
+    },
+    {
+      "id": "0.751458366573305",
+      "done": false,
+      "text": "вфеф",
+      "userId": "1"
+    },
+    {
+      "id": "0.6697853900142904",
+      "done": false,
+      "text": "кото",
+      "userId": "1"
+    },
+    {
+      "id": "0.7062904043806847",
+      "done": false,
+      "text": "ПЕПА",
+      "userId": "1"
+    },
+    {
+      "id": "0.5216570901423944",
+      "done": false,
+      "text": "пеп",
+      "userId": "1"
+    },
+    {
+      "id": "0.6338544995182254",
+      "done": false,
+      "text": "jkk",
+      "userId": "1"
+    }
   ]
 }

@@ -1,29 +1,33 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { todoListApi } from "./api";
-import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { List, Title, Wrapper } from "./Todo-lost.styles";
-import IgorButton from "../../sahred/IgorButton.style";
 import { ListRender } from "./components/ListItemConstr";
-import { useIntersection } from "./hooks/useIntr";
+import { useTodoList } from "./hooks/use-todo-list";
+import { todoListApi } from "./api";
 
 const TodoList = () => {
-  const [enabled, setEnabled] = useState<boolean>(false);
-  const {
-    data: todoItems,
-    error,
-    isLoading,
-    isPlaceholderData,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useInfiniteQuery({
-    enabled,
-    ...todoListApi.getTodoListInfinityQueryOptions(),
+  const { cursor, todoItems, error, isLoading } = useTodoList();
+  const queryClient = useQueryClient();
+
+  const createTodoMutation = useMutation({
+    mutationFn: todoListApi.createTodo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks", "list"] });
+    },
   });
 
-  const cursorRef = useIntersection(() => {
-    fetchNextPage();
-  });
+  const handleCreate = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const text = String(formData.get("text"));
+
+    createTodoMutation.mutate({
+      id: Math.random().toString(),
+      done: false,
+      text: text,
+      userId: "1",
+    });
+    console.log("Create todos item:", text);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -34,16 +38,14 @@ const TodoList = () => {
   }
 
   return (
-    <Wrapper $isFetching={isPlaceholderData} className="">
-      <IgorButton onClick={() => setEnabled((e) => !e)}>
-        {enabled ? "ON" : "OFF"}
-      </IgorButton>
+    <Wrapper $isFetching={false} className="">
       <Title className="">Todo List</Title>
+      <form onSubmit={handleCreate}>
+        <input type="text" name="text" />
+        <button>create</button>
+      </form>
       <List>{ListRender(todoItems)}</List>
-      <div ref={cursorRef}>
-        {!hasNextPage && "no data for load next"}
-        {isFetchingNextPage && "Loading more..."}
-      </div>
+      {cursor}
     </Wrapper>
   );
 };

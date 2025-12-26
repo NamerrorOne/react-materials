@@ -7,7 +7,7 @@ export const ListRender = (todoItems: TodoDto[] | undefined): JSX.Element[] => {
     ? todoItems?.map((task) => (
         <ListItem key={task.id}>
           <input type="checkbox" checked={task.done} readOnly />
-          {task.title}
+          {task.text}
         </ListItem>
       ))
     : [<div key="no-items">No items</div>];

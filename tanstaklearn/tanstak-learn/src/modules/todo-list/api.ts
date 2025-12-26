@@ -1,4 +1,5 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
+import { jsonApiInstance } from "../../sahred/api/api-instance";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -14,7 +15,8 @@ export type PaginatedResult<T> = {
 export type TodoDto = {
   id: string;
   done: boolean;
-  title: string;
+  text: string;
+  userId: string;
 };
 
 export const todoListApi = {
@@ -31,7 +33,11 @@ export const todoListApi = {
   getTodoListQueryOptions: ({ page }: { page: number }) => {
     return queryOptions({
       queryKey: ["tasks", "list", page],
-      queryFn: (meta) => todoListApi.getTodoList({ page }, meta),
+      queryFn: (meta) =>
+        jsonApiInstance(`/tasks?_page=${page}&_per_page=5`, {
+          signal: meta.signal,
+          json: undefined,
+        }),
     });
   },
 
@@ -39,10 +45,35 @@ export const todoListApi = {
     return infiniteQueryOptions({
       queryKey: ["tasks", "list"],
       queryFn: (meta) =>
-        todoListApi.getTodoList({ page: meta.pageParam }, meta),
+        jsonApiInstance<PaginatedResult<TodoDto>>(
+          `/tasks?_page=${meta.pageParam}&_per_page=5`,
+          {
+            signal: meta.signal,
+            json: undefined,
+          }
+        ),
       initialPageParam: 1,
       getNextPageParam: (res) => res.next,
       select: (res) => res.pages.flatMap((page) => page.data),
+    });
+  },
+
+  createTodo: (data: TodoDto) => {
+    return jsonApiInstance<TodoDto>("/tasks", {
+      method: "POST",
+      json: data,
+    });
+  },
+  updateTodo: (id: string, data: Partial<TodoDto>) => {
+    return jsonApiInstance<TodoDto>(`/tasks/${id}`, {
+      method: "PATCH",
+      json: data,
+    });
+  },
+  deleteTodo: (id: string) => {
+    return jsonApiInstance(`/tasks/${id}`, {
+      method: "DELETE",
+      json: null,
     });
   },
 };
