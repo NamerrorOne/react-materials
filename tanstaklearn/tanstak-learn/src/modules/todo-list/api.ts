@@ -69,8 +69,6 @@ export const todoListApi = {
     });
   },
   updateTodo: async (data: Partial<TodoDto> & { id: string }) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    throw new Error("Сломалось!");
     return jsonApiInstance<TodoDto>(`/tasks/${data.id}`, {
       method: "PATCH",
       json: data,
