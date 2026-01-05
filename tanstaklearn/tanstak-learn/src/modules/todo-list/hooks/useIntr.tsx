@@ -1,12 +1,20 @@
 import { useCallback, useRef } from "react";
 
-export const useIntersection = (onIntersect: () => void) => {
+export const useIntersection = (
+  onIntersect: () => void,
+  isFetchingNextPage: boolean,
+  hasNextPage: boolean
+) => {
   const unsubscribe = useRef(() => {});
   return useCallback(
     (el: HTMLDivElement | null) => {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((intersection) => {
-          if (intersection.isIntersecting) {
+          if (
+            intersection.isIntersecting &&
+            !isFetchingNextPage &&
+            hasNextPage
+          ) {
             onIntersect();
           }
         });
@@ -19,6 +27,6 @@ export const useIntersection = (onIntersect: () => void) => {
         unsubscribe.current();
       }
     },
-    [onIntersect]
+    [onIntersect, isFetchingNextPage, hasNextPage]
   );
 };

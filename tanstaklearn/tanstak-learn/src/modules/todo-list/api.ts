@@ -20,6 +20,8 @@ export type TodoDto = {
 };
 
 export const todoListApi = {
+  baseKey: "tasks",
+
   getTodoList: async (
     { page }: { page: number },
     { signal }: { signal: AbortSignal }
@@ -30,9 +32,9 @@ export const todoListApi = {
     }).then((res) => res.json() as Promise<PaginatedResult<TodoDto>>);
   },
 
-  getTodoListQueryOptions: ({ page }: { page: number }) => {
+  getTodoListQueryOptions: function ({ page }: { page: number }) {
     return queryOptions({
-      queryKey: ["tasks", "list", page],
+      queryKey: [this?.baseKey, "list", page],
       queryFn: (meta) =>
         jsonApiInstance(`/tasks?_page=${page}&_per_page=5`, {
           signal: meta.signal,
@@ -43,10 +45,10 @@ export const todoListApi = {
 
   getTodoListInfinityQueryOptions: () => {
     return infiniteQueryOptions({
-      queryKey: ["tasks", "list"],
+      queryKey: [todoListApi.baseKey, "list"],
       queryFn: (meta) =>
         jsonApiInstance<PaginatedResult<TodoDto>>(
-          `/tasks?_page=${meta.pageParam}&_per_page=5`,
+          `/tasks?_page=${meta.pageParam}&_per_page=5&_sort=text&_order=asc`,
           {
             signal: meta.signal,
             json: undefined,
@@ -54,7 +56,9 @@ export const todoListApi = {
         ),
       initialPageParam: 1,
       getNextPageParam: (res) => res.next,
-      select: (res) => res.pages.flatMap((page) => page.data),
+      select: (res) => {
+        return res.pages.flatMap((page) => page.data);
+      },
     });
   },
 
@@ -64,8 +68,10 @@ export const todoListApi = {
       json: data,
     });
   },
-  updateTodo: (id: string, data: Partial<TodoDto>) => {
-    return jsonApiInstance<TodoDto>(`/tasks/${id}`, {
+  updateTodo: async (data: Partial<TodoDto> & { id: string }) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    throw new Error("Сломалось!");
+    return jsonApiInstance<TodoDto>(`/tasks/${data.id}`, {
       method: "PATCH",
       json: data,
     });

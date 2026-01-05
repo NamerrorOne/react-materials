@@ -14,9 +14,13 @@ export const useTodoList = () => {
     ...todoListApi.getTodoListInfinityQueryOptions(),
   });
 
-  const cursorRef = useIntersection(() => {
-    fetchNextPage();
-  });
+  const cursorRef = useIntersection(
+    () => {
+      fetchNextPage();
+    },
+    isFetchingNextPage,
+    hasNextPage
+  );
 
   const cursor = (
     <div ref={cursorRef}>

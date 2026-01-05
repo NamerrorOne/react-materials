@@ -11,7 +11,6 @@ export const jsonApiInstance = async <T>(
   url: string,
   init?: RequestInit & { json: unknown }
 ) => {
-  console.log("START FETCH:", `${BASE_URL}${url}`);
   let headers = init?.headers ?? {};
   if (init?.json) {
     headers = {
