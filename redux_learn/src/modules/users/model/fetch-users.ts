@@ -1,20 +1,20 @@
-import { api } from '../../../shared/api';
-import { type AppDispatch, type AppState } from '../../../store';
+import { type AppThunk } from '../../../shared/redux';
 import { usersSlice } from '../users.slice';
 
-export const fetchUsers = (dispatch: AppDispatch, getState: () => AppState) => {
-	const isIdle = usersSlice.selectors.selectIsFetchUsersIdle(getState());
-	if (!isIdle) {
-		return;
-	}
-	dispatch(usersSlice.actions.fetchUsersPending());
-	api
-		.getUsers()
-		.then((data) => {
-			dispatch(usersSlice.actions.fetchUsersSuccess({ users: data }));
-		})
-		.catch((e) => {
-			console.log(e);
-			dispatch(usersSlice.actions.fetchUsersFailed());
-		});
-};
+export const fetchUsers =
+	({ refetch }: { refetch?: boolean } = {}): AppThunk<Promise<void>> =>
+	async (dispatch, getState, { api }) => {
+		const isIdle = usersSlice.selectors.selectIsFetchUsersIdle(getState());
+		if (!isIdle && !refetch) {
+			return;
+		}
+		dispatch(usersSlice.actions.fetchUsersPending());
+		return api
+			.getUsers()
+			.then((users) => {
+				dispatch(usersSlice.actions.fetchUsersSuccess({ users }));
+			})
+			.catch(() => {
+				dispatch(usersSlice.actions.fetchUsersFailed());
+			});
+	};

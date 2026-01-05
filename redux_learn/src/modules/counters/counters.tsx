@@ -1,35 +1,42 @@
-import { useAppDispatch, useAppSelector } from '../../store';
+import { useAppSelector } from '../../shared/redux';
 import {
+	selectCounter,
 	decrementAction,
 	incrementAction,
 	type CounterId,
 } from './counters.slice';
+import { useDispatch } from 'react-redux';
 
-export const Counters = () => {
+export function Counters() {
 	return (
-		<div>
-			<Counter counterId="1"></Counter>
-			<Counter counterId="2"></Counter>
+		<div className="flex flex-row items-center justify-center gap-5">
+			<Counter counterId="first" />
+			<Counter counterId="second" />
 		</div>
 	);
-};
+}
 
 export function Counter({ counterId }: { counterId: CounterId }) {
-	console.log('component rerender');
-	const dispatch = useAppDispatch();
-	const counterState = useAppSelector((state) => state.counters[counterId]);
+	const dispatch = useDispatch();
+	const counterState = useAppSelector((state) =>
+		selectCounter(state, counterId),
+	);
 
 	return (
-		<>
-			<span style={{ margin: '0 20px' }}></span>
-			<button onClick={() => dispatch(decrementAction({ counterId }))}>
-				-
+		<div className="flex flex-row items-center justify-center gap-5 ">
+			counter {counterState?.counter}
+			<button
+				onClick={() => dispatch(incrementAction({ counterId }))}
+				className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+			>
+				increment
 			</button>
-			<span style={{ margin: '0 20px' }}>{counterState?.counter}</span>
-			<button onClick={() => dispatch(incrementAction({ counterId }))}>
-				+
+			<button
+				onClick={() => dispatch(decrementAction({ counterId }))}
+				className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+			>
+				decriment
 			</button>
-			<span style={{ margin: '0 20px' }}></span>
-		</>
+		</div>
 	);
 }

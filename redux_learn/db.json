@@ -1,24 +1,9 @@
 {
-	"users": [
-		{
-			"id": "1",
-			"name": "Y",
-			"description": "A software engineer from NY."
-		},
-		{
-			"id": "2",
-			"name": "Arthur",
-			"description": "A software engineer from NY."
-		},
-		{
-			"id": "3",
-			"name": "Ivan",
-			"description": "A software engineer from NY."
-		},
-		{
-			"id": "4",
-			"name": "Blackman",
-			"description": "A software engineer from NY."
-		}
-	]
+  "users": [
+    {
+      "id": "1",
+      "name": "Y",
+      "description": "A software engineer from NY."
+    }
+  ]
 }

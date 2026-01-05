@@ -1,26 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../store';
+import { memo, useState } from 'react';
+import { useAppSelector } from '../../shared/redux';
 import { usersSlice, type UserId } from './users.slice';
-import { fetchUsers } from './model/fetch-users';
+import { useNavigate } from 'react-router-dom';
 
-const UsersList = () => {
+export function UsersList() {
 	const [sortType, setSortType] = useState<'asc' | 'desc'>('asc');
-	const dispatch = useAppDispatch();
 
 	const isPending = useAppSelector(
 		usersSlice.selectors.selectIsFetchUsersPending,
 	);
 
-	useEffect(() => {
-		dispatch(fetchUsers);
-	}, [dispatch]);
-
 	const sortedUsers = useAppSelector((state) =>
 		usersSlice.selectors.selectSortedUsers(state, sortType),
-	);
-
-	const selectedUserId = useAppSelector(
-		usersSlice.selectors.selectSelectedUserId,
 	);
 
 	if (isPending) {
@@ -28,59 +19,48 @@ const UsersList = () => {
 	}
 
 	return (
-		<div>
-			{!selectedUserId ? (
-				<div>
-					<div>
-						<button onClick={() => setSortType('asc')}>asc</button>
-						<button onClick={() => setSortType('desc')}>desc</button>
-					</div>
-					<ul>
-						{sortedUsers.map((user) => {
-							return (
-								<>
-									<UserListItem userId={user.id} key={user.id} />
-								</>
-							);
-						})}
-					</ul>
+		<div className="flex flex-col items-center">
+			<div className="flex flex-col items-center justify-between">
+				<div className="flex flex-row items-center">
+					<button
+						onClick={() => setSortType('asc')}
+						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+					>
+						Asc
+					</button>
+					<button
+						onClick={() => setSortType('desc')}
+						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-2"
+					>
+						Desc
+					</button>
 				</div>
-			) : (
-				<>
-					<SelectedUser userId={selectedUserId} />
-				</>
-			)}
+				<ul className="list-none">
+					{sortedUsers.map((user) => (
+						<UserListItem userId={user.id} key={user.id} />
+					))}
+				</ul>
+			</div>
 		</div>
 	);
-};
+}
 
-export default UsersList;
-
-const SelectedUser = ({ userId }: { userId: UserId }) => {
-	const dispatch = useAppDispatch();
-
+const UserListItem = memo(function UserListItem({
+	userId,
+}: {
+	userId: UserId;
+}) {
+	const navigate = useNavigate();
 	const user = useAppSelector((state) => state.users.entities[userId]);
-
-	const onBackButtonClick = () => {
-		dispatch(usersSlice.actions.deselected());
-	};
-	return (
-		<div>
-			<button onClick={onBackButtonClick}>back</button>
-			<h2>{user.name}</h2>
-			<p>{user.description}</p>
-		</div>
-	);
-};
-
-const UserListItem = ({ userId }: { userId: UserId }) => {
-	const dispatch = useAppDispatch();
 	const handleUserClick = () => {
-		dispatch(usersSlice.actions.selected({ userId }));
+		navigate(userId, { relative: 'path' });
 	};
+	if (!user) {
+		return null;
+	}
 	return (
-		<li key={userId} onClick={handleUserClick}>
-			<span>user: {userId}</span>
+		<li key={user.id} className="py-2" onClick={handleUserClick}>
+			<span className="hover:underline cursor-pointer">{user.name}</span>
 		</li>
 	);
-};
+});
